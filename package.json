@@ -1,20 +1,23 @@
 {
   "name": "webpack_builder",
-  "version": "0.0.3",
+  "version": "0.0.8",
   "description": "webpack builder",
   "main": "index.js",
   "author": "CRYDEsigN",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack-dev-server --config ./webpack/webpack.config --mode development --open "
+    "dev": "webpack-dev-server --config ./webpack/webpack.config --mode development --open ",
+    "prod": "webpack --config ./webpack/webpack.config --mode production"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
+    "critical": "^1.2.2",
     "css-loader": "^0.28.11",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "html-beautify-webpack-plugin": "^1.0.5",
+    "html-webpack-critical-plugin": "^1.0.3",
     "html-webpack-plugin": "^3.2.0",
     "node-config-yaml": "^0.1.4",
     "node-sass": "^4.8.3",

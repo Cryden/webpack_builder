@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlBeautifyPlugin = require('html-beautify-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const WebpackNotifierPlugin = require('webpack-notifier')
+const HtmlWebpackCriticalPlugin = require('html-webpack-critical-plugin')
 
 module.exports = {
   entry: './source/js/index.js',
@@ -45,6 +46,7 @@ module.exports = {
       contentImage: path.resolve('assets', 'logo-square.png'),
       alwaysNotify: true
     }),
+    new HtmlWebpackCriticalPlugin(),
     new HtmlWebpackPlugin({
       title: 'Custom template using Pug',
       template: './source/pug/index.pug'
