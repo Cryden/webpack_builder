@@ -1,0 +1,8 @@
+{
+  "name": "webpack_builder",
+  "version": "0.0.1",
+  "description": "webpack builder",
+  "main": "index.js",
+  "author": "CRYDEsigN",
+  "license": "MIT"
+}
