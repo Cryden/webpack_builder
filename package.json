@@ -1,12 +1,12 @@
 {
   "name": "webpack_builder",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "webpack builder",
   "main": "index.js",
   "author": "CRYDEsigN",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack --config webpack/webpack.config --mode development"
+    "dev": "webpack-dev-server --config ./webpack/webpack.config --mode development --open "
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -25,6 +25,8 @@
     "standard": "^11.0.1",
     "style-loader": "^0.20.3",
     "webpack": "^4.5.0",
-    "webpack-cli": "^2.0.14"
+    "webpack-cli": "^2.0.14",
+    "webpack-dev-server": "^3.1.2",
+    "webpack-notifier": "^1.6.0"
   }
 }

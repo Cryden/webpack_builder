@@ -2,6 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlBeautifyPlugin = require('html-beautify-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const WebpackNotifierPlugin = require('webpack-notifier')
 
 module.exports = {
   entry: './source/js/index.js',
@@ -39,6 +40,11 @@ module.exports = {
     ]
   },
   plugins: [
+    new WebpackNotifierPlugin({
+      title: 'FROND',
+      contentImage: path.resolve('assets', 'logo-square.png'),
+      alwaysNotify: true
+    }),
     new HtmlWebpackPlugin({
       title: 'Custom template using Pug',
       template: './source/pug/index.pug'
@@ -47,5 +53,10 @@ module.exports = {
     new ExtractTextPlugin({
       filename: 'css/styles.[hash].css'
     })
-  ]
+  ],
+  devServer: {
+    contentBase: path.resolve('dist'),
+    compress: true,
+    port: 9000
+  }
 }

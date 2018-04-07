@@ -7,6 +7,8 @@
 </p>
 </br>
 
+[![StackShare](https://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/Cryden/frond)
+
 ## Install
 
 ``` 
@@ -20,3 +22,7 @@ git clone https://github.com/Cryden/webpack_builder
 - [x] add Sass preprocessor
 
 - [x] add Babel support
+
+- [x] add webpack-dev-server (livereload)
+
+- [x] add notifier
