@@ -2,20 +2,21 @@
 ### FROnt-eND webpack build tools
 
 </br>
-<center>
-<img src='./assets/logo.png' width=300>
-</center>
+<p align='center'>
+<img  src='./assets/logo.png' width='300'/>
+</p>
+</br>
 
 ## Install
 
-```
+``` 
 git clone https://github.com/Cryden/webpack_builder
 ```
 
 ## Features
 
-[ ] add Pug template engine
+- [x] add Pug template engine
 
-[ ] add Sass preprocessor
+- [x] add Sass preprocessor
 
-[ ] add Babel support
+- [x] add Babel support
