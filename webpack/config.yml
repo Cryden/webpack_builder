@@ -1,0 +1,10 @@
+environments:
+  default: development
+  static:
+    - production
+
+development:
+  mode: development
+
+production:
+  mode: production
