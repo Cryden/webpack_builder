@@ -1,0 +1,23 @@
+header
+  +default
+    position: fixed
+    top: 0
+    left: -320px
+    z-index: 1060
+    width: 260px
+    height: 100vh
+    background: $color-base
+    box-shadow: 6px 0px 10px 0px rgba(0,0,0,0.25)    
+    display: block
+    overflow: auto
+    -webkit-overflow-scrolling: touch
+    -ms-overflow-style: none
+  +laptop
+    left: 60px!important
+  +desktop
+    left: 100px!important
+    width: 320px
+
+header::-webkit-scrollbar
+  +default
+    display: none

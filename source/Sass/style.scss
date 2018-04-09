@@ -1,0 +1,52 @@
+// HTML reset
+
+@import "utilites/reset";
+//@import "normalize";
+
+// mixins
+
+@import "utilites/mixins";
+
+// Color Shema
+
+@import "themes/light";
+//@import "themes/dark";
+
+// Fonts
+
+$fa-font-path: '~font-awesome/fonts';
+@import '~font-awesome/scss/font-awesome.scss';
+
+// Main Layout
+
+@import "layout/base";
+@import "layout/fonts";
+@import "layout/header";
+@import "layout/main";
+@import "layout/footer";
+
+
+// Components
+
+@import "components/main-logo";
+@import "components/main-nav";
+@import "components/quickinfo";
+@import "components/main-menu";
+@import "components/mob-nav";
+@import "components/footer-copyright";
+@import "components/footer-menu";
+@import "components/page-title";
+@import "components/page-content";
+@import "components/page-footer";
+
+@import "components/inline-info";
+@import "components/inline-item";
+
+// Page components
+
+@import "components/universe-cover";
+@import "components/content";
+
+@import "components/universes-card";
+
+//@import "components/vue";

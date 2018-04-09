@@ -1,0 +1,62 @@
+.main-menu
+    display: flex
+    flex-direction: column
+    padding-bottom: 60px
+
+    &__item
+        height: 50px
+        width: 100%
+        display: flex
+        align-content: space-around
+        color: $color-main
+        text-decoration: none
+
+    &__item-dropdown
+        cursor: pointer
+           
+    &__icon
+        font-size: 20px
+        width: 20px
+        margin: 15px 0px 15px 20px
+
+    &__icon-dropdown
+        font-size: 12px
+        margin: 22px 20px 
+        float: right
+        color: $color-second
+        transition: width .5s, height .5s, background-color .5s, transform .5s
+
+    .toggled>.main-menu__icon-dropdown
+        transform-origin: center
+        transform: rotate(180deg)
+
+    ul, li
+        list-style: none
+        padding: 0
+    
+        .inner
+            overflow: hidden
+            display: none
+            background-color: rgba(0, 0, 0, 0.02)
+
+            &>.main-menu__item 
+                padding-left: 10px
+            &>.inner>.main-menu__item 
+                padding-left: 20px
+
+    li
+        &:hover
+            background-color: rgba(0, 0, 0, 0.02)
+    
+    span 
+        font-size: 18px //unit(12, pts, px)
+        line-height: 50px
+        display: flex
+        width: 100%
+        margin-left: 20px
+        //text-transform: uppercase
+
+    .active
+        //font-weight: 400
+        background: url("../images/left-menu-hover.png") repeat-y
+        color: $color-main-light

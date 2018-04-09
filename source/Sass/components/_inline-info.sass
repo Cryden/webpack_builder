@@ -1,0 +1,27 @@
+.inline-info
+    +default
+        display: inline-flex
+        margin-bottom: 5px
+        flex-direction: row
+    +mobile 
+        margin-bottom: 0
+
+    &__title
+        +default
+            color: $color-main-light
+            font-size: 14px//unit(13,pts,px)
+        +mobile 
+            font-size: unit(11,pts,px)
+
+    &__description
+        +default
+            color: $color-main
+            font-weight: 400
+            font-size: 14px //unit(13,pts,px)
+            margin-left: 5px
+        +mobile 
+            font-size: unit(11,pts,px)
+
+.universe-sidebar
+    display: flex
+    flex-direction: column

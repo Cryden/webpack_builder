@@ -1,0 +1,22 @@
+.quickinfo
+  display: flex
+  flex-direction: row
+  +laptop
+    display: none
+  &__img
+    height: 50px
+    width: 50px
+    margin: 15px
+    border-radius: 50%;
+  &__info
+    display: flex
+    flex-direction: column
+    margin: 15px 0
+    span 
+      font-size: 13px
+      line-height: 30px
+      color: $color-main
+    h2 
+      font-size: 15px
+      color: $color-main-light
+      margin: 0

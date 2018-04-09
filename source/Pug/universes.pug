@@ -1,0 +1,72 @@
+extends layout/default
+
+block page_title 
+    - var title = 'Вселенные'
+
+block page_content
+    .content
+        h2.catalog-title A
+        .universe-card
+            .universe-card__cover
+                img(src="./images/aliens_cover.jpg" alt="cover")
+            .universe-card-info
+                .universe-card-info__left
+                    h3 Aliens
+                    .subtitle Чужой
+                .universe-card-info__right
+                    .raiting 5.7
+        .universe-card
+            .universe-card__cover
+                img(src="./images/avp_cover.jpg" alt="cover")
+            .universe-card-info
+                .universe-card-info__left
+                    h3 Aliens
+                    .subtitle Чужой
+                .universe-card-info__right
+                    .raiting 5.7
+        .universe-card
+            .universe-card__cover
+                img(src="./images/assassins_creed_cover.jpg" alt="cover")
+            .universe-card-info
+                .universe-card-info__left
+                    h3 Aliens
+                    .subtitle Чужой
+                .universe-card-info__right
+                    .raiting 5.7
+        h2.catalog-title B
+        .universe-card
+            .universe-card__cover
+                img(src="./images/babylon5_cover.jpg" alt="cover")
+            .universe-card-info
+                .universe-card-info__left
+                    h3 Aliens
+                    .subtitle Чужой
+                .universe-card-info__right
+                    .raiting 5.7
+        .universe-card
+            .universe-card__cover
+                img(src="./images/battletech_cover.jpg" alt="cover")
+            .universe-card-info
+                .universe-card-info__left
+                    h3 Aliens
+                    .subtitle Чужой
+                .universe-card-info__right
+                    .raiting 5.7
+
+
+block page_additional
+    .universe-sidebar
+        h3.sidebar-title Выбрать
+        a.inline-item(href="#")
+            .inline-item__icon.fa.fa-user
+            .inline-item__title Недавно добавленные
+        a.inline-item(href="#")
+            .inline-item__icon.fa.fa-user
+            .inline-item__title Популярные
+        a.inline-item(href="#")
+            .inline-item__icon.fa.fa-user
+            .inline-item__title Выбор редакции
+
+        h3.sidebar-title По алфавиту
+
+        h3.sidebar-title По жанру

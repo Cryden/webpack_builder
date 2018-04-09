@@ -1,0 +1,69 @@
+.content-title
+    +default
+        margin-bottom: 40px
+        color: $color-main
+    +mobile 
+        margin-bottom: 40px
+        margin-left: 15px
+    +tablet 
+        margin-left: 15px
+
+    +laptop
+        margin-left: 40px
+    +desktop
+        margin-left: 80px
+
+    &__title
+        +default
+            font-size: 28px//unit(20,pts,px)
+            line-height: 12px
+            font-weight: 400
+            color: $color-main
+            display: flex
+            line-height: 40px   
+        +laptop 
+            font-size: 28px //unit(36,pts,px)
+                
+    &__badge
+        +default
+            margin-left: 20px
+        +mobile 
+            display: none
+    &__subtitle
+        +default
+            //margin-top: 20px
+            font-size: 14px //unit(18,pts,px)
+            line-height: 0px
+            color: $color-main-light
+        +mobile  
+            font-size: unit(14,pts,px)
+            line-height: 20px
+
+.content
+    p 
+        margin-bottom: 20px
+        text-indent: 20px
+        text-align: justify
+        hyphens: auto
+
+.sidebar-title
+    +default
+        font-size: 18px
+        color: $color-main-light
+        margin: 40px 0
+        font-weight: 400
+
+.sidebar-sticky-top
+    position: sticky
+    top: 20px
+
+.catalog-title
+    width: 40px
+    height: 36px
+    border-bottom: 4px solid $color-second
+    line-height: 20px
+    font-size: 20px
+    font-weight: 400
+    margin-bottom: 40px
+    text-align: center
+    color: $color-main-light

@@ -1,0 +1,41 @@
+.navbar // bootstrap update
+  +default
+    background: $color-base
+    border: 0
+    box-shadow: 0 0px 15px black
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    width: 100%
+    padding: 0
+    z-index: 6
+  +laptop
+    display: none
+  &__logo
+    margin: 15px
+    img
+      width: 60px
+      height: 30px
+  &__menu-button
+
+.sticky-top
+  position: sticky
+  top: 0
+
+.open_btn
+  padding: 20px
+  font-size: 20px
+  line-height: 20px
+  height: 60px 
+  display: block
+
+.close_btn
+  color: $color-second
+  position: fixed
+  top: 0
+  left: 260px
+  padding: 20px
+  font-size: 20px
+  line-height: 20px
+  height: 60px
+  display: none

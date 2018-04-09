@@ -1,0 +1,23 @@
+.inline-item
+    +default
+        display: inline-flex
+        margin-bottom: 20px
+        flex-direction: row
+    +mobile 
+        margin-bottom: 0
+
+    &__icon
+        +default
+            color: $color-main-light
+            font-size: 30px//unit(13,pts,px)
+        +mobile 
+            font-size: unit(11,pts,px)
+
+    &__title
+        +default
+            color: $color-main
+            font-size: 14px //unit(13,pts,px)
+            line-height: 30px
+            margin-left: 20px
+        +mobile 
+            font-size: unit(11,pts,px)
