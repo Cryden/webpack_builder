@@ -1,9 +1,10 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// const HtmlBeautifyPlugin = require('html-beautify-webpack-plugin')
+const HtmlBeautifyPlugin = require('html-beautify-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const WebpackNotifierPlugin = require('webpack-notifier')
 const HtmlWebpackCriticalPlugin = require('html-webpack-critical-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ImageminPlugin = require('imagemin-webpack-plugin').default
 
 module.exports = {
@@ -42,7 +43,11 @@ module.exports = {
       },
       {
         test: /\.pug$/,
-        loader: 'pug-loader'
+        use: [
+          {
+            loader: 'pug-loader'
+          }
+        ]
       },
       {
         test: /\.(sass|scss)$/,
@@ -69,16 +74,18 @@ module.exports = {
         }]
       },
       {
-        test: /\.(png|jp(e*)g|gif)$/,
-        use: [{
-          loader: 'url-loader',
-          options: {
-            limit: 8000,
-            name: '[name].[ext]',
-            outputPath: 'images/',
-            publicPath: './../images/'
+        test: /\.(jpe?g|png|gif)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8000,
+              name: '[name].[ext]',
+              outputPath: 'images/',
+              publicPath: './../images/'
+            }
           }
-        }]
+        ]
       }
     ]
   },
@@ -101,16 +108,14 @@ module.exports = {
       title: 'Custom template using Pug',
       template: './source/pug/index.pug'
     }),
-    // new HtmlBeautifyPlugin(),
+    new HtmlBeautifyPlugin(),
     new ExtractTextPlugin({
       filename: 'css/styles.[hash].css'
     }),
-    new ImageminPlugin({
-      test: /\.(jpe?g|png|gif|svg)$/i,
-      pngquant: {
-        quality: '95-100'
-      }
-    })
+    new CopyWebpackPlugin([
+      {from: 'source/images', to: 'images'}
+    ]),
+    new ImageminPlugin({ test: /\.(jpe?g|png|gif|svg)$/i })
   ],
   devServer: {
     contentBase: path.resolve('dist'),
