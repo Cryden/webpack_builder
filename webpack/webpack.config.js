@@ -106,6 +106,7 @@ module.exports = {
       filename: 'css/styles.[hash].css'
     }),
     new ImageminPlugin({
+      test: /\.(jpe?g|png|gif|svg)$/i,
       pngquant: {
         quality: '95-100'
       }
