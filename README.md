@@ -3,7 +3,7 @@
 
 </br>
 <p align='center'>
-<img  src='./assets/logo.png' width='300'/>
+  <img  src='./assets/logo.png' width='300'/>
 </p>
 </br>
 
@@ -17,11 +17,19 @@ git clone https://github.com/Cryden/webpack_builder
 
 ## Features
 
+### HTML
+
 - [x] add Pug template engine
+
+### CSS
 
 - [x] add Sass preprocessor
 
+### JS
+
 - [x] add Babel support
+
+### Other
 
 - [x] add webpack-dev-server (livereload)
 
