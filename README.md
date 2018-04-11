@@ -34,3 +34,5 @@ git clone https://github.com/Cryden/webpack_builder
 - [x] add webpack-dev-server (livereload)
 
 - [x] add notifier
+
+-> splitconfig
