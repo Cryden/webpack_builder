@@ -18,26 +18,20 @@ let common = {
   performance: {
     hints: false
   },
+  stats: 'none',
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Custom template using Pug',
       template: './source/pug/index.pug'
     })
-  ],
-  stats: {
-    colors: true,
-    version: false,
-    hash: false,
-    timings: false,
-    chunks: false,
-    chunkModules: false
-  }
+  ]
 }
 
 module.exports = merge([
   common,
   options.livereload(),
   options.notify(),
+  options.bar(),
   tasks.images(),
   tasks.babeljs(),
   tasks.fonts(),
