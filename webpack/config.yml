@@ -1,10 +1,31 @@
+config:
+  template:
+    pug
+  styles:
+    sass
+  javascript:
+    babel
+
+path:
+  source: 'source'
+  build: 'dist'
+
+entry:
+  templates:
+    - index
+    - contacts
+  styles:
+    styles
+  javascript:
+    index
+
+
+
+
+
+
+
 environments:
   default: development
   static:
     - production
-
-development:
-  mode: development
-
-production:
-  mode: production
