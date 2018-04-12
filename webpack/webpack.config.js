@@ -8,10 +8,12 @@ const options = require('require-all')(optionspath)
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 let common = {
-  entry: './source/js/index.js',
+  entry: {
+    index: './source/js/index.js'
+  },
   output: {
     path: path.resolve('dist'),
-    filename: 'js/index.bundle.[hash].js'
+    filename: 'js/[name].bundle.[hash].js'
   },
   performance: {
     hints: false
@@ -21,7 +23,15 @@ let common = {
       title: 'Custom template using Pug',
       template: './source/pug/index.pug'
     })
-  ]
+  ],
+  stats: {
+    colors: true,
+    version: false,
+    hash: false,
+    timings: false,
+    chunks: false,
+    chunkModules: false
+  }
 }
 
 module.exports = merge([
@@ -34,5 +44,6 @@ module.exports = merge([
   tasks.pug(),
   tasks.sass(),
   tasks.vue(),
-  tasks.extractStyles()
+  tasks.extractStyles(),
+  tasks.favicons()
 ])

@@ -21,6 +21,8 @@ git clone https://github.com/Cryden/webpack_builder
 
 - [x] add Pug template engine
 
+- [x] add Favicons support (production)
+
 ### CSS
 
 - [x] add Sass preprocessor
