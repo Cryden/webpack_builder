@@ -1,6 +1,6 @@
 {
   "name": "webpack_builder",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "webpack builder",
   "main": "index.js",
   "author": "CRYDEsigN",

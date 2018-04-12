@@ -38,3 +38,5 @@ git clone https://github.com/Cryden/webpack_builder
 - [x] add notifier
 
 - [x] add webpack bar
+
+- [ ] [add file manager](https://www.npmjs.com/package/filemanager-webpack-plugin)
