@@ -1,18 +1,16 @@
 const config = require('node-config-yaml').load('./webpack/config.yml')
+const path = require('path')
 
 // console.log(config)
-
+let cf = {}
 let entry = {}
 function addEntry (config) {
-  console.log(config.entry.templates)
-  for (var keyName in config.entry.templates) {
-    console.log(keyName)
-    if (config.entry.templates.hasOwnProperty(keyName)) {
-      entry[keyName] = keyName
-    }
-  }
+  config.entry.javascript.forEach(function (item) {
+    entry[item] = path.join(config.path.source, config.path.entry, item + '.js')
+  })
+  cf.entry = entry
 }
 
 addEntry(config)
 
-console.log(entry)
+console.log(cf)

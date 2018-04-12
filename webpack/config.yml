@@ -1,4 +1,4 @@
-config:
+frond:
   template:
     pug
   styles:
@@ -7,17 +7,19 @@ config:
     babel
 
 path:
-  source: 'source'
-  build: 'dist'
+  source: './source'
+  build: './dist'
+  entry: 'js'
 
 entry:
   templates:
     - index
     - contacts
   styles:
-    styles
+    - styles
+
   javascript:
-    index
+    - index
 
 
 
