@@ -17,6 +17,7 @@
     "critical": "^1.2.2",
     "css-loader": "^0.28.11",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "favicons-webpack-plugin": "^0.0.9",
     "file-loader": "^1.1.11",
     "group-css-media-queries-loader": "^1.0.4",
     "html-beautify-webpack-plugin": "^1.0.5",
@@ -28,6 +29,7 @@
     "path": "^0.12.7",
     "pug": "^2.0.3",
     "pug-loader": "^2.4.0",
+    "require-all": "^2.2.0",
     "sass-loader": "^6.0.7",
     "standard": "^11.0.1",
     "style-loader": "^0.20.3",
@@ -43,6 +45,7 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
     "vue": "^2.5.16",
-    "vue-resource": "^1.5.0"
+    "vue-resource": "^1.5.0",
+    "webpack-merge": "^4.1.2"
   }
 }
