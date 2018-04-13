@@ -1,5 +1,3 @@
-/* global ExtractTextPlugin */
-
 module.exports = babeljs => {
   return {
     module: {

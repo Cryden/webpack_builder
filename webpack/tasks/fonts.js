@@ -4,6 +4,7 @@ module.exports = fonts => {
       rules: [
         {
           test: /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+          exclude: /(images)/,
           use: [{
             loader: 'file-loader',
             options: {
