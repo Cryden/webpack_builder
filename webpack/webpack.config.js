@@ -24,11 +24,6 @@ let common = {
       title: 'Custom template using Pug',
       template: './source/pug/index.pug',
       filename: 'index.html'
-    }),
-    new HtmlWebpackPlugin({
-      title: 'Custom template using Pug',
-      template: './source/pug/universe.pug',
-      filename: 'universe.html'
     })
   ]
 }
