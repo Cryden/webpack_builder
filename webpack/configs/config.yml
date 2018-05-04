@@ -1,0 +1,34 @@
+frond:
+  template:
+    - pug
+  styles:
+    - sass
+  javascript:
+    - babel
+
+path:
+  source: './source'
+  build: './dist'
+
+entrys:
+  templates:
+    folders:
+      ${path.source}/${frond.template}
+    files:
+      - ${entry.templates.folders}/index.pug
+      - ${entry.templates.folders}/universe.pug
+  styles:
+    - styles
+  javascript:
+    - index
+
+
+
+
+
+
+
+environments:
+  default: development
+  static:
+    - production

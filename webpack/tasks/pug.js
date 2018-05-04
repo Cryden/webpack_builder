@@ -6,7 +6,13 @@ module.exports = pug => {
           test: /\.pug$/,
           use: [
             {
-              loader: 'pug-loader'
+              loader: 'html-loader',
+              options: {
+                attrs: ['img:src']
+              }
+            },
+            {
+              loader: 'pug-plain-loader'
             }
           ]
         }

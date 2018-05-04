@@ -18,11 +18,17 @@ let common = {
   performance: {
     hints: false
   },
-  stats: 'none',
+  stats: 'errors-only',
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Custom template using Pug',
-      template: './source/pug/index.pug'
+      template: './source/pug/index.pug',
+      filename: 'index.html'
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Custom template using Pug',
+      template: './source/pug/universe.pug',
+      filename: 'universe.html'
     })
   ]
 }
