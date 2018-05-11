@@ -1,6 +1,6 @@
 {
-  "name": "webpack_builder",
-  "short_name": "webpack_builder",
+  "name": "@cryden/webpack_builder",
+  "short_name": "@cryden/webpack_builder",
   "description": null,
   "dir": "auto",
   "lang": "en-US",

@@ -3,7 +3,7 @@ dist
 
 _source
 __source
-
+__*
 
 *.cdr
 *.log

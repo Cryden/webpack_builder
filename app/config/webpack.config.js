@@ -6,14 +6,13 @@ let optionspath = path.resolve('webpack/options/')
 const options = require('require-all')(optionspath)
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 let common = {
   entry: {
     index: './source/js/index.js'
   },
   output: {
-    path: path.resolve('app/client'),
+    path: path.resolve('dist'),
     filename: 'js/[name].bundle.[hash].js'
   },
   performance: {
@@ -25,10 +24,7 @@ let common = {
       title: 'Custom template using Pug',
       template: './source/pug/index.pug',
       filename: 'index.html'
-    }),
-    new CopyWebpackPlugin([
-      {from: 'source/images', to: 'images'}
-    ])
+    })
   ]
 }
 
@@ -41,7 +37,6 @@ module.exports = merge([
   tasks.babeljs(),
   tasks.fonts(),
   tasks.pug(),
-  tasks.css(),
   tasks.sass(),
   tasks.vue(),
   tasks.extractStyles(),
