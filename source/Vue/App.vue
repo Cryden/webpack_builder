@@ -18,21 +18,9 @@
             </v-card-title>
             <v-container fluid grid-list-md>
               <v-layout row wrap>
-                <v-flex
-                  v-for="card in section.cards"
-                  v-bind="{ [`xs2`]: true }"
-                  :key="card.title"
-                >
-                  <div class="b-card">
-                    <img class="b-card-logo" :src=card.src />
-                    <p>{{ card.title }}</p>
-                      <v-checkbox
-                        label="Checkbox"
-                        v-model="htmlTemplates"
-                        value
-                      ></v-checkbox>
-                  </div>
-                </v-flex>
+                <bcard v-for="card in section.cards" 
+                :key="card.title" 
+                v-bind:value=card></bcard>
               </v-layout>
             </v-container>
           </v-card>
@@ -45,17 +33,21 @@
 </template>
 
 <script>
+  import bcard from './components/bcard.vue'
+
   export default {
+    components: { 
+      bcard 
+    },
     data: () => ({
-      htmlTemplates: [''],
       sections: [
         { 
           title: 'Template Engine',
           icon: 'fab fa-html5',
           color: 'orange',
           cards: [
-            { title: 'HTML5', src: 'images/html5-logo.png'},
-            { title: 'PUG', src: 'images/pug-logo.png'},
+            { title: 'HTML5', src: 'images/html5-logo.png', check: false},
+            { title: 'PUG', src: 'images/pug-logo.png', check: false},
           ] 
         },
         { 
@@ -63,9 +55,9 @@
           color: 'blue',
           icon: 'fab fa-css3',
           cards: [
-            { title: 'CSS', src: 'images/css3-logo.png'},
-            { title: 'SASS', src: 'images/sass-logo.png'},
-            { title: 'LESS', src: 'images/less-logo.png'},
+            { title: 'CSS', src: 'images/css3-logo.png', check: false},
+            { title: 'SASS', src: 'images/sass-logo.png', check: false},
+            { title: 'LESS', src: 'images/less-logo.png', check: false},
           ] 
         }
       ]
