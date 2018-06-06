@@ -1,66 +1,81 @@
 <template>
   <v-app>
     <v-navigation-drawer app>
-      <v-toolbar class="white" flat>
-        <v-toolbar-items class="text-lg-right">
-          <img src="./../images/logo.png" alt="FROND" class="logo" />
-        </v-toolbar-items>
-      </v-toolbar>
+      <div class="logo">
+        <img src="./../images/logo.png" alt="FROND"/>
+        <p>webpack based front-end builder</p>        
+      </div>
+
+      <p class="title options-title">I Used in Project</p>
+      <ul class="options-list">
+        <boptions
+          v-for="(section, index) in sections"
+          :key="section.id"
+          :state = section
+          :index = index
+        ></boptions>
+        <div class="text-xs-center options-button" >
+          <v-btn color="success">Generate</v-btn>
+        </div>
+      </ul>
     </v-navigation-drawer>
     <v-content>
-    <v-layout column>
-      <v-flex xs12>
-        <div v-for="section in sections" :key="section.title">
-          <v-card class="section">
-            <v-card-title primary-title class="section-title">
-              <v-icon>{{ section.icon }}</v-icon>
-              <div class="section-header">{{ section.title }}</div>
-            </v-card-title>
-            <v-container fluid grid-list-md>
-              <v-layout row wrap>
-                <bcard v-for="card in section.cards" 
-                :key="card.title" 
-                v-bind:value=card></bcard>
-              </v-layout>
-            </v-container>
-          </v-card>
-        </div>
-      </v-flex>
-    </v-layout>
+      <v-layout column>
+        <v-flex xs12>
+          <bsection 
+            v-for="section in sections" 
+            :key="section.id" 
+            v-bind:value=section
+          ></bsection>
+        </v-flex>
+      </v-layout>
+      <v-footer>
+      </v-footer>
     </v-content>
-    <v-footer app></v-footer>
   </v-app>
 </template>
 
 <script>
-  import bcard from './components/bcard.vue'
+  import bsection from './components/bsection.vue'
+  import boptions from './components/boptions.vue'
 
   export default {
     components: { 
-      bcard 
+      bsection,
+      boptions,
     },
-    data: () => ({
-      sections: [
-        { 
-          title: 'Template Engine',
-          icon: 'fab fa-html5',
-          color: 'orange',
-          cards: [
-            { title: 'HTML5', src: 'images/html5-logo.png', check: false},
-            { title: 'PUG', src: 'images/pug-logo.png', check: false},
-          ] 
-        },
-        { 
-          title: 'CSS preprocessors', 
-          color: 'blue',
-          icon: 'fab fa-css3',
-          cards: [
-            { title: 'CSS', src: 'images/css3-logo.png', check: false},
-            { title: 'SASS', src: 'images/sass-logo.png', check: false},
-            { title: 'LESS', src: 'images/less-logo.png', check: false},
-          ] 
-        }
-      ]
-    })
+    computed: {
+      sections () {
+        return this.$store.state.sections
+      }
+    },
+    data: () => ({})
   }
 </script>
+
+<style lang="sass">
+.logo
+  display: flex
+  flex-direction: column
+  align-items: center
+  margin: 40px
+  img 
+    width: 140px
+  p 
+    margin-top: 10px
+    font-size: 14px
+
+.options-title
+  width: 100%
+  text-align: center
+  padding: 5%
+
+.options-list
+  width: 100%
+  padding: 0 5%
+  list-style-type: none
+
+.options-button
+  margin-top: 30px
+
+</style>

@@ -14,7 +14,7 @@ module.exports = vue => {
                 fallback: 'vue-style-loader'
               }),
               sass: ExtractTextPlugin.extract({
-                use: 'vue-style-loader!css-loader!sass-loader?indentedSyntax',
+                use: 'css-loader!sass-loader?indentedSyntax',
                 fallback: 'vue-style-loader'
               })
             }
