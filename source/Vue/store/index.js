@@ -98,10 +98,10 @@ export default {
   },
   mutations: {
     checkSections (state, title, value) {
+      if (value !== true) {
+        value = false
+      }
       state.sections[title].check = value
-      console.log(value)
-      //console.log (title) 
-
     }
   }
 }

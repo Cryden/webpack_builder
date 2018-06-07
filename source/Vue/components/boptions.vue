@@ -1,12 +1,15 @@
 <template>
-  <div>
-    <li>
+  <div class="b-options">
+    <li
+      v-for="(section, index) in sections"
+      :key = index
+    >
       <v-checkbox
-        :label = state.title
+        :label = section.title
         :hide-details = true
-        @click = "updateMessage(index, checkValue)"
-        :value = checkValue
-        v-model = checkValue
+        :value = section.check
+        v-model = section.check
+        @click = 'updateCheck(index, section.check)'
       ></v-checkbox>
     </li>
   </div>
@@ -14,22 +17,15 @@
 
 <script>
 export default {
-  name: 'boptions',
-  props: [ 'state', 'index' ],
-  data: () => (
-    {
-      checkValue: false
-    }
-  ),
+  name: 'b-options',
   computed: {
-    checkValue: function () {
-      return true
-    }
+    sections() {
+      return this.$store.state.sections
+    },
   },
   methods: {
-    updateMessage (e, check) {
-      console.log(e)
-      this.$store.commit('checkSections', e, check)
+    updateCheck (index, check) {
+      this.$store.commit('checkSections', index, check)
     }
   }
 }

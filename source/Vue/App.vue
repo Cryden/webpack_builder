@@ -5,19 +5,7 @@
         <img src="./../images/logo.png" alt="FROND"/>
         <p>webpack based front-end builder</p>        
       </div>
-
-      <p class="title options-title">I Used in Project</p>
-      <ul class="options-list">
-        <boptions
-          v-for="(section, index) in sections"
-          :key="section.id"
-          :state = section
-          :index = index
-        ></boptions>
-        <div class="text-xs-center options-button" >
-          <v-btn color="success">Generate</v-btn>
-        </div>
-      </ul>
+      <boptionslist></boptionslist>
     </v-navigation-drawer>
     <v-content>
       <v-layout column>
@@ -37,12 +25,12 @@
 
 <script>
   import bsection from './components/bsection.vue'
-  import boptions from './components/boptions.vue'
+  import boptionslist from './components/boptionslist.vue'
 
   export default {
     components: { 
       bsection,
-      boptions,
+      boptionslist,
     },
     computed: {
       sections () {

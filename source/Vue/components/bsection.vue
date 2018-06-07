@@ -20,7 +20,7 @@
 import bcard from './bcard.vue'
 
 export default {
-  name: 'bsection',
+  name: 'b-section',
   components: { 
     bcard 
   },
