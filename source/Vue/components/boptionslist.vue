@@ -20,6 +20,17 @@ export default {
 }
 </script>
 
-<style>
+<style lang="sass">
+.options-title
+  width: 100%
+  text-align: center
+  padding: 5%
 
+.options-list
+  width: 100%
+  padding: 0 5%
+  list-style-type: none
+
+.options-button
+  margin-top: 30px
 </style>

@@ -1,19 +1,22 @@
 <template>
-  <v-card class="section" v-if="value.check">
-    <v-card-title class="headline section-title">
-      <v-icon :class="value.color + '--text'" >{{ value.icon }}</v-icon>
-      <div class="section-header">{{ value.title }}</div>
-    </v-card-title>
-    <v-container fluid grid-list-md>
-      <v-layout row wrap>
-        <bcard 
-          v-for = "card in value.cards" 
-          :key = "card.title" 
-          v-bind:value = card
-        ></bcard>
-      </v-layout>
-    </v-container>
-  </v-card>
+  <div class="b-section">
+    <div
+      v-for = "(section, index) in sections" 
+      :key = index
+    >
+      <v-card class="section" v-if="section.check">
+        <v-card-title class="headline section-title">
+          <v-icon :class="section.color + '--text'" >{{ section.icon }}</v-icon>
+          <div class="section-header">{{ section.title }}</div>
+        </v-card-title>
+        <v-container fluid grid-list-md>
+          <v-layout row wrap>
+            <bcard :cards = section.cards :section = index></bcard>
+          </v-layout>
+        </v-container>
+      </v-card>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -25,7 +28,12 @@ export default {
     bcard 
   },
   data: () => ({}),
-  props: [ 'value',],
+  props: [],
+  computed: {
+    sections() {
+      return this.$store.state.sections
+    },
+  }
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="b-options">
     <li
-      v-for="(section, index) in sections"
+      v-for = "(section, index) in sections"
       :key = index
     >
       <v-checkbox
@@ -25,7 +25,11 @@ export default {
   },
   methods: {
     updateCheck (index, check) {
-      this.$store.commit('checkSections', index, check)
+      this.$store.commit({
+        type: 'checkSections', 
+        index: index, 
+        check: check
+      })
     }
   }
 }

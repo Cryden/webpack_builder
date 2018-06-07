@@ -1,25 +1,45 @@
- <template>
-    <div class="b-card">
-      <img class="b-card__logo" :src=value.src />
+<template>
+  <div class="bcard">
+    <ul
+      v-for = "(card, index) in cards" 
+      :key = index 
+    >
+      <li class="b-card">
+        <img class="b-card__logo" :src=card.src />
         <v-checkbox
-          :label = value.title
-          v-model = "htmlTemplates"
-          :value = value.check
+          :hide-details = true
+          :label = card.title
+          v-model = card.check
+          :value = card.check
+          @click = 'updateCheck(index, card.check)'
         ></v-checkbox>
-    </div>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'bcard',
-  props: [ 'value',],
-  data: () => ({
-    htmlTemplates: false,
-  })
+  props: [ 'section', 'cards' ],
+  methods: {
+    updateCheck (card, check) {
+      this.$store.commit({
+        type: 'checkCards', 
+        section: this.$props.section, 
+        card: card, 
+        check: check
+      })
+    }
+  }
+
 }
 </script>
 
 <style lang="sass" scoped>
+.bcard
+  display: flex
+  flex-direction: row
 .b-card 
   margin: 10px
   padding: 10px
