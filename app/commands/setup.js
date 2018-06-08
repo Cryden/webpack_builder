@@ -1,13 +1,19 @@
 // const copydir = require('copy-dir')
 // copydir.sync('node_modules/' + require('./../package.json').name + '/app/config', 'webpack')
 
-const packageDir = 'node_modules/' + require('./../package.json').name
 const fs = require('fs')
 const path = require('path')
 const open = require('open')
 const express = require('express')
 const bodyParser = require('body-parser')
+// const globalDirs = require('global-dirs')
+
 const app = express()
+
+// let npm_path = globalDirs.npm.packages
+// let yarn_path = globalDirs.yarn.packages
+
+const packageDir = '/node_modules/' + require('./../../package.json').name
 
 const port = 8000
 

@@ -13,7 +13,7 @@ program
   .command('setup')
   .description('setup FROND')
   .action(function () {
-    require('./app/setup')
+    require('./app/commands/setup')
   })
 
 program

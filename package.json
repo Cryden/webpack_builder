@@ -1,6 +1,6 @@
 {
   "name": "@cryden/webpack_builder",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "webpack builder",
   "main": "index.js",
   "author": "CRYDEsigN",
@@ -62,6 +62,7 @@
     "body-parser": "^1.18.3",
     "commander": "^2.15.1",
     "express": "^4.16.3",
+    "global-dirs": "^0.1.1",
     "open": "^0.0.5",
     "path": "^0.12.7"
   },
