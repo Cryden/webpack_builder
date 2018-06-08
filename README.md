@@ -3,7 +3,7 @@
 
 </br>
 <p align='center'>
-  <img  src='.app//assets/logo.png' width='300'/>
+  <img  src='.app/assets/logo.png' width='300'/>
 </p>
 </br>
 
