@@ -21,7 +21,7 @@ program
   .alias('dev')
   .description('run FROND in development mode')
   .action(function () {
-    require('./app/development')
+    require('./app/commands/development')
   })
 
 program
