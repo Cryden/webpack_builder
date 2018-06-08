@@ -32,8 +32,7 @@
       sections () {
         return this.$store.state.sections
       }
-    },
-    data: () => ({})
+    }
   }
 </script>
 

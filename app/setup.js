@@ -6,9 +6,12 @@ const fs = require('fs')
 const path = require('path')
 const open = require('open')
 const express = require('express')
+const bodyParser = require('body-parser')
 const app = express()
 
 const port = 8000
+
+app.use(bodyParser.json())
 
 function checkDefaultConfig () {
   if (fs.existsSync('frond.config.yml')) {
@@ -30,6 +33,13 @@ function init () {
   app.post('/', (request, response) => {
     checkDefaultConfig()
     response.send('FROND config file created!')
+  })
+
+  app.post('/generate', (request, response) => {
+    var data = JSON.stringify(request.body)
+    console.log(data)
+    fs.writeFileSync('frond.config.js', data)
+    response.send(data)
   })
 
   app.listen(port, (err) => {

@@ -1,6 +1,6 @@
 {
   "name": "@cryden/webpack_builder",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "description": "webpack builder",
   "main": "index.js",
   "author": "CRYDEsigN",
@@ -11,9 +11,11 @@
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
+    "axios": "^0.18.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
+    "body-parser": "^1.18.3",
     "commander": "^2.15.1",
     "copy-dir": "^0.3.0",
     "copy-webpack-plugin": "^4.5.1",
@@ -51,6 +53,7 @@
     "webpackbar": "^2.6.1"
   },
   "dependencies": {
+    "@cryden/webpack_builder": "../webpack_builder",
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-free-brands": "^5.0.13",
     "express": "^4.16.3",

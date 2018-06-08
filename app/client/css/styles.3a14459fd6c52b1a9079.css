@@ -14680,12 +14680,7 @@ table.table tfoot tr td {
   -moz-osx-font-smoothing: grayscale;
   /* Support for IE. */
   font-feature-settings: 'liga';
-}.logo {
-  height: 35px;
-  margin: 40px 72px;
-}
-
-nav {
+}nav {
   margin-bottom: 15px;
 }
 
@@ -14696,7 +14691,7 @@ nav {
 .section-title {
   height: 30px;
   font-weight: 400;
-  padding-bottom: 24px;
+  padding: 20px 24px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
@@ -14705,12 +14700,50 @@ nav {
   font-size: 20px;
 }
 
-.b-card {
-  margin: 10px;
-  text-align: center;
-  font-weight: 600;
+.input-group {
+  flex-wrap: nowrap;
+}
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px;
+}
+.logo img {
+    width: 140px;
+}
+.logo p {
+    margin-top: 10px;
+    font-size: 14px;
 }
 
-.b-card .b-card-logo {
+.bcard[data-v-6b89cd65] {
+  display: flex;
+  flex-direction: row;
+}
+.b-card[data-v-6b89cd65] {
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 120px;
+}
+.b-card__logo[data-v-6b89cd65] {
+    width: 60px;
+    margin: 20px;
+}
+
+.options-title {
   width: 100%;
+  text-align: center;
+  padding: 5%;
+}
+.options-list {
+  width: 100%;
+  padding: 0 5%;
+  list-style-type: none;
+}
+.options-button {
+  margin-top: 30px;
 }

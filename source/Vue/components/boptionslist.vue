@@ -4,7 +4,7 @@
       <ul class="options-list">
         <boptions></boptions>
         <div class="text-xs-center options-button" >
-          <v-btn color="success">Generate</v-btn>
+          <v-btn color="success" @click="sendFile">Generate</v-btn>
         </div>
       </ul>
   </div>
@@ -12,10 +12,22 @@
 
 <script>
 import boptions from './boptions.vue'
+import axios from 'axios'
 
 export default {
   components: {
     boptions
+  },
+  methods: {
+    sendFile() {
+      axios({
+        method: 'post',
+        url: '/generate',
+        data: this.$store.state.sections
+      }).then(function(response) {
+        console.log(response.data)
+      })
+    }
   }
 }
 </script>
