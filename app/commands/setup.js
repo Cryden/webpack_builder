@@ -6,14 +6,8 @@ const path = require('path')
 const open = require('open')
 const express = require('express')
 const bodyParser = require('body-parser')
-// const globalDirs = require('global-dirs')
 
 const app = express()
-
-// let npm_path = globalDirs.npm.packages
-// let yarn_path = globalDirs.yarn.packages
-
-const packageDir = '/node_modules/' + require('./../../package.json').name
 
 const port = 8000
 
@@ -30,10 +24,10 @@ function checkDefaultConfig () {
 }
 
 function init () {
-  app.use(express.static(path.join(packageDir, 'app/client')))
-
+  app.use(express.static(path.resolve(__dirname, './../client')))
   app.get('/', (request, response) => {
-    response.sendFile(path.resolve(packageDir, 'app/client/index.html'))
+    console.log(fs.stat)
+    response.sendFile(path.resolve(__dirname, './../client/index.html'))
   })
 
   app.post('/', (request, response) => {
