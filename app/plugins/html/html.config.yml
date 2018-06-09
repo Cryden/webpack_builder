@@ -1,4 +1,7 @@
 name: html
+type: Template Engine
+title: HTML5
+icon: html.logo.png
 description: build html (default)
 dependencies: 
   "html-webpack-plugin": "^3.2.0"

@@ -6,6 +6,7 @@ const path = require('path')
 const open = require('open')
 const express = require('express')
 const bodyParser = require('body-parser')
+const yaml = require('json2yaml')
 
 const app = express()
 
@@ -35,9 +36,10 @@ function init () {
   })
 
   app.post('/generate', (request, response) => {
-    var data = JSON.stringify(request.body)
     console.log('FROND setup')
-    fs.writeFileSync('frond.config.js', data)
+    let ymlText = yaml.stringify(request.body)
+    fs.writeFileSync('frond.config.yml', ymlText)
+    fs.writeFileSync('frond.config.json', JSON.stringify(request.body))
     response.send('frond setup')
   })
 

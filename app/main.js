@@ -1,10 +1,6 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
-
-var program = require('commander')
+let program = require('commander')
 
 program
   .version(require('./../package.json').version, '-v, --version')
