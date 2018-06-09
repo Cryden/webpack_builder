@@ -26,7 +26,6 @@ function checkDefaultConfig () {
 function init () {
   app.use(express.static(path.resolve(__dirname, './../client')))
   app.get('/', (request, response) => {
-    console.log(fs.stat)
     response.sendFile(path.resolve(__dirname, './../client/index.html'))
   })
 
@@ -37,9 +36,9 @@ function init () {
 
   app.post('/generate', (request, response) => {
     var data = JSON.stringify(request.body)
-    console.log(data)
+    console.log('FROND setup')
     fs.writeFileSync('frond.config.js', data)
-    response.send(data)
+    response.send('frond setup')
   })
 
   app.listen(port, (err) => {
