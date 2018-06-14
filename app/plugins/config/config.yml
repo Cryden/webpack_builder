@@ -1,4 +1,4 @@
-name: base
+plugin_name: base
 description: base config
 dependencies: 
   "path": "^0.12.7"

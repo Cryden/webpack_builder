@@ -1,6 +1,3 @@
-// const copydir = require('copy-dir')
-// copydir.sync('node_modules/' + require('./../package.json').name + '/app/config', 'webpack')
-
 const fs = require('fs')
 const path = require('path')
 const open = require('open')
@@ -25,9 +22,9 @@ function checkDefaultConfig () {
 }
 
 function init () {
-  app.use(express.static(path.resolve(__dirname, './../client')))
+  app.use(express.static(path.resolve(__dirname, '../app/client')))
   app.get('/', (request, response) => {
-    response.sendFile(path.resolve(__dirname, './../client/index.html'))
+    response.sendFile(path.resolve(__dirname, '../app/client/index.html'))
   })
 
   app.post('/', (request, response) => {
