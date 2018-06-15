@@ -2,8 +2,6 @@ const yaml = require('js-yaml')
 const fs = require('fs')
 const path = require('path')
 
-installPlugins()
-
 function checkActivePlugins (data) {
   data = data || []
   let plugins = []
@@ -116,4 +114,6 @@ function installFrond () {
   console.log(activePluginsDir)
 }
 
-installFrond()
+module.exports.installPlugins = installPlugins
+module.exports.installFrond = installFrond
+

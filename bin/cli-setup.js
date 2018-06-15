@@ -22,6 +22,7 @@ function checkDefaultConfig () {
 }
 
 function init () {
+  frond.installPlugins()
   app.use(express.static(path.resolve(__dirname, '../app/client')))
   app.get('/', (request, response) => {
     response.sendFile(path.resolve(__dirname, '../app/client/index.html'))
@@ -36,6 +37,7 @@ function init () {
     console.log('FROND setup')
     fs.mkdirSync('./frond/')
     fs.writeFileSync('./frond/frond.config.json', JSON.stringify(request.body))
+    frond.installFrond()
     response.send('frond setup')
   })
 
