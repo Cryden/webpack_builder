@@ -1,25 +1,25 @@
-const data = require('./../../frond.config.json')
+const data = require('./../../frond/frond.config.json')
 const yaml = require('js-yaml')
 const fs = require('fs')
 const path = require('path')
 
-let plugins = []
-
 function checkedPlugins (data) {
+  data = data || []
+  let plugins = ['base']
   for (let index = 0; index < data.length; index++) {
     const section = data[index]
 
-    for (let index = 0; index < section.cards.length; index++) {
-      const card = section.cards[index]
-      if (card.check === true) {
-        plugins.push(card.title)
+    if (section.cards !== undefined) {
+      for (let i = 0; i < section.cards.length; i++) {
+        const card = section.cards[i]
+        if (card.check === true) {
+          plugins.push(card.plugin_name)
+        }
       }
     }
   }
   return plugins
 }
-
-checkedPlugins(data)
 
 function readPluginsDir (dir, data) {
   data = data || []
@@ -43,19 +43,19 @@ function readPluginsDir (dir, data) {
 }
 
 function init () {
+  var plugins = checkedPlugins(data)
   var tools = readPluginsDir('app/plugins')
   var components = yaml.safeLoad(fs.readFileSync('app/plugins/config/components.yml', 'utf8'))
 
   for (var key in tools) {
     var pluginData = yaml.safeLoad(fs.readFileSync(tools[key], 'utf8'))
-    // console.log(pluginData)
 
     for (let index = 0; index < components.length; index++) {
       if (components[index].title === pluginData.type) {
         components[index].cards = []
         var card = {}
         card.title = pluginData.title
-
+        card.plugin_name = pluginData.plugin_name
         if (pluginData.icon !== undefined) {
           card.src = 'images/' + pluginData.title + '-logo.png'
           let imgSource = path.dirname(tools[key]) + '/' + pluginData.icon
@@ -78,10 +78,9 @@ function init () {
 
   fs.writeFileSync('./app/client/config.json', JSON.stringify(components))
 
-  // console.log('components:', components)
-  // console.log('tools:', tools)
+  console.log('components:', components)
+  console.log('tools:', tools)
+  console.log('plugins:', plugins)
 }
 
 init()
-
-// console.log('plugins:', plugins)

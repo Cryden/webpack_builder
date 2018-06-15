@@ -17,35 +17,29 @@
       - 
         title: "CSS3"
         src: "images/dump.png"
-        check: null
+        check: true
     check: true
   - 
     title: "CSS Frameworks"
     color: "blue"
     icon: "fab fa-css3"
-    check: true
   - 
     title: "JS Transpilers & Extension Languages"
     color: "yellow"
     icon: "fab fa-js"
-    check: true
   - 
     title: "JS Library"
     color: "yellow"
     icon: "fab fa-js"
-    check: true
   - 
     title: "JS Framework"
     color: "yellow"
     icon: "fab fa-js"
-    check: true
   - 
     title: "Fonts"
     color: "blue"
     icon: "fas fa-font"
-    check: true
   - 
     title: "Tools"
     color: "red"
     icon: "fas fa-toolbox"
-    check: true
