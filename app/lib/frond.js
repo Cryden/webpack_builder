@@ -148,8 +148,10 @@ function client () {
 
   app.post('/generate', (request, response) => {
     console.log('FROND setup')
-    fs.mkdirSync('./frond/')
-    fs.writeFileSync('./frond/frond.config.json', JSON.stringify(request.body))
+    if (!fs.existsSync('./frond/')) {
+      fs.mkdirSync('./frond/')
+    }
+    fs.writeFileSync('./frond/frond.config.json', JSON.stringify(request.body), {flag: 'w+'})
     installFrond()
     response.send('frond setup')
   })
