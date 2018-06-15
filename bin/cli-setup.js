@@ -36,7 +36,7 @@ function init () {
     console.log('FROND setup')
     let ymlText = yaml.stringify(request.body)
     fs.writeFileSync('frond.config.yml', ymlText)
-    fs.writeFileSync('frond.config.json', JSON.stringify(request.body))
+    fs.writeFileSync('./app/client/config.json', JSON.stringify(request.body))
     response.send('frond setup')
   })
 

@@ -31,5 +31,8 @@ new Vue({// eslint-disable-line no-new
   el: '#app',
   components: { App },
   store: store,
-  template: '<App/>'
+  template: '<App/>',
+  created () {
+    this.$store.dispatch('loadConfig')
+  }
 })
