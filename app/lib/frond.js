@@ -24,7 +24,8 @@ let plugins = []
 
 // console.log(plugins)
 
-function readPluginsDir (dir) {
+function readPluginsDir (dir, data) {
+  data = data || []
   let dirFiles = fs.readdirSync(dir)
 
   for (let index = 0; index < dirFiles.length; index++) {
@@ -33,21 +34,23 @@ function readPluginsDir (dir) {
     if (dirFiles[index].endsWith('.config')) {
       if (fs.existsSync(dirFiles[index])) {
         let keyName = (/([ \w-]+?(?=\.))/.exec(dirFiles[index])[1])
-        plugins[keyName] = path.join(dirFiles[index])
+        data[keyName] = path.join(dirFiles[index])
       }
     } else {
       if (fs.statSync(dirFiles[index]).isDirectory()) {
-        readPluginsDir(dirFiles[index])
+        readPluginsDir(dirFiles[index], data)
       }
     }
   }
+  return data
 }
 
 function init () {
-  readPluginsDir('app/plugins')
+  var tools = readPluginsDir('app/plugins')
   var components = yaml.safeLoad(fs.readFileSync('app/plugins/config/components.yml', 'utf8'))
 
   console.log('components:', components)
+  console.log('tools:', tools)
 }
 
 init()
