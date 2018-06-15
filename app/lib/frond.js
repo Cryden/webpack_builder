@@ -2,6 +2,10 @@ const yaml = require('js-yaml')
 const fs = require('fs')
 const path = require('path')
 
+const open = require('open')
+const express = require('express')
+const bodyParser = require('body-parser')
+
 function checkActivePlugins (data) {
   data = data || []
   let plugins = []
@@ -54,7 +58,7 @@ function setupClient (components, tools) {
         if (pluginData.icon !== undefined) {
           card.src = 'images/' + pluginData.title + '-logo.png'
           let imgSource = path.dirname(tools[key]) + '/' + pluginData.icon
-          fs.createReadStream(path.resolve(__dirname, imgSource)).pipe(fs.createWriteStream(path.resolve(__dirname, '../client/images/') + pluginData.title + '-logo.png'))
+          fs.createReadStream(path.resolve(__dirname, imgSource)).pipe(fs.createWriteStream(path.resolve(__dirname, '../client/images/', pluginData.title + '-logo.png')))
         } else {
           card.src = 'images/dump.png'
         }
@@ -114,6 +118,52 @@ function installFrond () {
   console.log(activePluginsDir)
 }
 
+function checkDefaultConfig () {
+  if (fs.existsSync('frond.config.yml')) {
+  } else {
+    fs.appendFile('frond.config.yml', 'Hello content!', function (err) {
+      if (err) throw err
+      console.log('Saved!')
+    })
+  }
+}
+
+function client () {
+  installPlugins()
+
+  const app = express()
+  const port = 8000
+
+  app.use(bodyParser.json())
+  app.use(express.static(path.resolve(__dirname, '../client')))
+
+  app.get('/', (request, response) => {
+    response.sendFile(path.resolve(__dirname, '../client/index.html'))
+  })
+
+  app.post('/', (request, response) => {
+    checkDefaultConfig()
+    response.send('FROND config file created!')
+  })
+
+  app.post('/generate', (request, response) => {
+    console.log('FROND setup')
+    fs.mkdirSync('./frond/')
+    fs.writeFileSync('./frond/frond.config.json', JSON.stringify(request.body))
+    installFrond()
+    response.send('frond setup')
+  })
+
+  app.listen(port, (err) => {
+    if (err) {
+      return console.log('something bad happened', err)
+    }
+    console.log(`server is listening on ${port}`)
+  })
+
+  open(`http://localhost:${port}`)
+}
+
 module.exports.installPlugins = installPlugins
 module.exports.installFrond = installFrond
-
+module.exports.client = client

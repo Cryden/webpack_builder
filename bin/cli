@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 let program = require('commander')
+let frond = require('../app/lib/frond.js')
 
 program
   .version(require('../package.json').version, '-v, --version')
@@ -9,7 +10,7 @@ program
   .command('setup')
   .description('setup FROND')
   .action(function () {
-    require('./cli-setup')
+    frond.client()
   })
 
 program

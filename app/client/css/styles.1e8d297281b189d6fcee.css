@@ -14680,7 +14680,21 @@ table.table tfoot tr td {
   -moz-osx-font-smoothing: grayscale;
   /* Support for IE. */
   font-feature-settings: 'liga';
-}nav {
+}
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px;
+}
+.logo img {
+    width: 140px;
+}
+.logo p {
+    margin-top: 10px;
+    font-size: 14px;
+}
+nav {
   margin-bottom: 15px;
 }
 
@@ -14703,20 +14717,6 @@ table.table tfoot tr td {
 .input-group {
   flex-wrap: nowrap;
 }
-.logo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 40px;
-}
-.logo img {
-    width: 140px;
-}
-.logo p {
-    margin-top: 10px;
-    font-size: 14px;
-}
-
 .bcard[data-v-6b89cd65] {
   display: flex;
   flex-direction: row;
