@@ -3,6 +3,7 @@ const path = require('path')
 const open = require('open')
 const express = require('express')
 const bodyParser = require('body-parser')
+const frond = require('../app/lib/frond.js')
 
 const app = express()
 
@@ -35,7 +36,6 @@ function init () {
     console.log('FROND setup')
     fs.mkdirSync('./frond/')
     fs.writeFileSync('./frond/frond.config.json', JSON.stringify(request.body))
-    fs.writeFileSync('./app/client/config.json', JSON.stringify(request.body))
     response.send('frond setup')
   })
 

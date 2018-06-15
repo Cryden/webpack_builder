@@ -1,11 +1,12 @@
-const data = require('./../../frond/frond.config.json')
 const yaml = require('js-yaml')
 const fs = require('fs')
 const path = require('path')
 
-function checkedPlugins (data) {
+installPlugins()
+
+function checkActivePlugins (data) {
   data = data || []
-  let plugins = ['base']
+  let plugins = []
   for (let index = 0; index < data.length; index++) {
     const section = data[index]
 
@@ -42,11 +43,7 @@ function readPluginsDir (dir, data) {
   return data
 }
 
-function init () {
-  var plugins = checkedPlugins(data)
-  var tools = readPluginsDir('app/plugins')
-  var components = yaml.safeLoad(fs.readFileSync('app/plugins/config/components.yml', 'utf8'))
-
+function setupClient (components, tools) {
   for (var key in tools) {
     var pluginData = yaml.safeLoad(fs.readFileSync(tools[key], 'utf8'))
 
@@ -59,7 +56,7 @@ function init () {
         if (pluginData.icon !== undefined) {
           card.src = 'images/' + pluginData.title + '-logo.png'
           let imgSource = path.dirname(tools[key]) + '/' + pluginData.icon
-          fs.createReadStream(imgSource).pipe(fs.createWriteStream('./app/client/images/' + pluginData.title + '-logo.png'))
+          fs.createReadStream(path.resolve(__dirname, imgSource)).pipe(fs.createWriteStream(path.resolve(__dirname, '../client/images/') + pluginData.title + '-logo.png'))
         } else {
           card.src = 'images/dump.png'
         }
@@ -76,11 +73,47 @@ function init () {
     }
   }
 
-  fs.writeFileSync('./app/client/config.json', JSON.stringify(components))
-
-  console.log('components:', components)
-  console.log('tools:', tools)
-  console.log('plugins:', plugins)
+  fs.writeFileSync(path.resolve(__dirname, '../client/config.json'), JSON.stringify(components))
 }
 
-init()
+function installPlugins () {
+  var components = yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, '../plugins/config/components.yml'), 'utf8'))
+  var tools = readPluginsDir(path.resolve(__dirname, '../plugins'))
+
+  setupClient(components, tools)
+}
+
+function getActivePluginsDir () {
+  var tools = readPluginsDir(path.resolve(__dirname, '../plugins'))
+  var activePlugins = checkActivePlugins(require('./../../frond/frond.config.json'))
+
+  for (let index = 0; index < activePlugins.length; index++) {
+    const plugin = activePlugins[index]
+    for (const key in tools) {
+      if (key === plugin) {
+        var activePluginsDir = path.dirname(tools[key])
+      }
+    }
+  }
+  return activePluginsDir
+}
+
+function getPluginConfig (paths) {
+  var pluginData = yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, paths), 'utf8'))
+  return pluginData
+}
+
+function installFrond () {
+  // install base config
+  var base = getPluginConfig(path.resolve(__dirname, '../plugins/config/base.config'))
+
+  console.log(require(path.resolve(__dirname, '../../package.json')).devDependencies)
+
+  fs.createReadStream(path.resolve(__dirname, '../plugins/config/webpack.config.js')).pipe(fs.createWriteStream('./frond/webpack.config.js'))
+  console.log(base)
+
+  var activePluginsDir = getActivePluginsDir()
+  console.log(activePluginsDir)
+}
+
+installFrond()
