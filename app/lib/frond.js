@@ -8,13 +8,15 @@ const express = require('express')
 const bodyParser = require('body-parser')
 
 // componets - group of plugins
-let components = yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, '../plugins/config/components.yml'), 'utf8'))
+let components = readYml('../plugins/config/components.yml')
 // tools - installed plugins
-let tools = readPluginsDir(path.resolve(__dirname, '../plugins'))
+let tools = readPluginsDir('../plugins')
 // plugins - active plugins
-let plugins = setPlugins()
+let plugins = []
 // pluginsDependencies - active plugins dependenncies
-let dependencies = getPluginDependencies()
+let dependencies = []
+
+// console.log(tools)
 
 /*
 /  Read .yml files
@@ -26,7 +28,7 @@ function readYml (paths) {
 /*
 /  set Active Plugins
 */
-function setPlugins () {
+function getPlugins () {
   let activePlugins = checkActivePlugins()
   let plugin = []
 
@@ -46,8 +48,7 @@ function setPlugins () {
 */
 function installPlugins () {
   for (var key in tools) {
-    var pluginData = yaml.safeLoad(fs.readFileSync(tools[key], 'utf8'))
-
+    var pluginData = getPluginConfig(tools[key])
     for (let index = 0; index < components.length; index++) {
       if (components[index].title === pluginData.type) {
         components[index].cards = []
@@ -55,9 +56,10 @@ function installPlugins () {
         card.title = pluginData.title
         card.plugin_name = pluginData.plugin_name
         if (pluginData.icon !== undefined) {
-          card.src = 'images/' + pluginData.title + '-logo.png'
-          let imgSource = path.dirname(tools[key]) + '/' + pluginData.icon
-          fs.createReadStream(path.resolve(__dirname, imgSource)).pipe(fs.createWriteStream(path.resolve(__dirname, '../client/images/', pluginData.title + '-logo.png')))
+          card.src = 'images/' + pluginData.plugin_name + '-logo.png'
+          let imgSource = path.resolve(tools[key], pluginData.icon)
+          console.log(imgSource)
+          fs.createReadStream(path.resolve(__dirname, imgSource)).pipe(fs.createWriteStream(path.resolve(__dirname, '../client/images/', pluginData.plugin_name + '-logo.png')))
         } else {
           card.src = 'images/dump.png'
         }
@@ -116,7 +118,7 @@ function checkActivePlugins () {
 */
 function readPluginsDir (dir, data) {
   data = data || []
-
+  dir = path.resolve(__dirname, dir)
   let dirFiles = fs.readdirSync(dir)
 
   for (let index = 0; index < dirFiles.length; index++) {
@@ -147,6 +149,9 @@ function getPluginConfig (paths) {
 
 function installFrond () {
   console.log('FROND install')
+
+  plugins = getPlugins()
+  dependencies = getPluginDependencies()
 
   initPackageJson()
 
@@ -220,11 +225,19 @@ function updatePackageJson () {
 }
 
 function addTasks () {
-
+  for (const key in plugins) {
+    if (plugins.hasOwnProperty(key)) {
+      let dirFile = path.join(plugins[key], 'task.js')
+      if (!fs.existsSync('./frond/tasks/')) {
+        fs.mkdirSync('./frond/tasks/')
+      }
+      if (fs.existsSync(dirFile)) {
+        fs.createReadStream(dirFile).pipe(fs.createWriteStream('./frond/tasks/' + key + '.js'))
+      }
+    }
+  }
 }
 
 module.exports.installPlugins = installPlugins
 module.exports.installFrond = installFrond
 module.exports.client = client
-
-installFrond()
