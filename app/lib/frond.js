@@ -7,12 +7,40 @@ const open = require('open')
 const express = require('express')
 const bodyParser = require('body-parser')
 
+// componets - group of plugins
 let components = yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, '../plugins/config/components.yml'), 'utf8'))
+// tools - installed plugins
 let tools = readPluginsDir(path.resolve(__dirname, '../plugins'))
-let activePlugins = checkActivePlugins()
+// plugins - active plugins
+let plugins = setPlugins()
+// pluginsDependencies - active plugins dependenncies
 let dependencies = getPluginDependencies()
 
-console.log(tools)
+/*
+/  Read .yml files
+*/
+function readYml (paths) {
+  return yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, paths), 'utf8'))
+}
+
+/*
+/  set Active Plugins
+*/
+function setPlugins () {
+  let activePlugins = checkActivePlugins()
+  let plugin = []
+
+  for (let index = 0; index < activePlugins.length; index++) {
+    const plugins = activePlugins[index]
+    for (const key in tools) {
+      if (key === plugins) {
+        plugin[key] = tools[key]
+      }
+    }
+  }
+  return plugin
+}
+
 /*
 /  Install All Plugins
 */
@@ -54,14 +82,11 @@ function installPlugins () {
 */
 function getPluginDependencies () {
   let dependencies = {}
-  for (let index = 0; index < activePlugins.length; index++) {
-    const plugin = activePlugins[index]
-    for (const key in tools) {
-      if (key === plugin) {
-        dependencies = getPluginConfig(tools[key]).dependencies
-      }
-    }
+
+  for (const key in plugins) {
+    dependencies = _.assign(dependencies, getPluginConfig(plugins[key]).dependencies)
   }
+
   return dependencies
 }
 
@@ -69,7 +94,7 @@ function getPluginDependencies () {
 / Return Active Plugins name
 */
 function checkActivePlugins () {
-  data = require('./../../frond/frond.config.json')
+  let data = require('./../../frond/frond.config.json')
   let plugins = []
   for (let index = 0; index < data.length; index++) {
     const section = data[index]
@@ -86,17 +111,21 @@ function checkActivePlugins () {
   return plugins
 }
 
+/*
+/ Return All Plugins
+*/
 function readPluginsDir (dir, data) {
   data = data || []
+
   let dirFiles = fs.readdirSync(dir)
 
   for (let index = 0; index < dirFiles.length; index++) {
     dirFiles[index] = path.join(dir, dirFiles[index])
 
-    if (dirFiles[index].endsWith('.config')) {
+    if (dirFiles[index].endsWith('config.yml')) {
       if (fs.existsSync(dirFiles[index])) {
-        let keyName = (/([ \w-]+?(?=\.))/.exec(dirFiles[index])[1])
-        data[keyName] = path.join(dirFiles[index])
+        let keyName = readYml(dirFiles[index]).plugin_name
+        data[keyName] = path.dirname(dirFiles[index])
       }
     } else {
       if (fs.statSync(dirFiles[index]).isDirectory()) {
@@ -107,28 +136,17 @@ function readPluginsDir (dir, data) {
   return data
 }
 
-function getActivePluginsDir () {
-  for (let index = 0; index < activePlugins.length; index++) {
-    const plugin = activePlugins[index]
-    for (const key in tools) {
-      if (key === plugin) {
-        activePluginsDir.push(path.dirname(tools[key]))
-      }
-    }
-  }
-  return activePluginsDir
-}
-
+/*
+/ Return Plugin config
+*/
 function getPluginConfig (paths) {
-  var pluginData = yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, paths), 'utf8'))
+  paths = paths + '/config.yml'
+  var pluginData = readYml(paths)
   return pluginData
 }
 
 function installFrond () {
   console.log('FROND install')
-
-  // install base config
-  var base = getPluginConfig(path.resolve(__dirname, '../plugins/config/base.config'))
 
   initPackageJson()
 
@@ -137,16 +155,6 @@ function installFrond () {
   fs.createReadStream(path.resolve(__dirname, '../plugins/config/webpack.config.js')).pipe(fs.createWriteStream('./frond/webpack.config.js'))
 
   console.log('FROND installed')
-}
-
-function checkDefaultConfig () {
-  if (fs.existsSync('frond.config.yml')) {
-  } else {
-    fs.appendFile('frond.config.yml', 'Hello content!', function (err) {
-      if (err) throw err
-      console.log('Saved!')
-    })
-  }
 }
 
 function client () {
@@ -160,11 +168,6 @@ function client () {
 
   app.get('/', (request, response) => {
     response.sendFile(path.resolve(__dirname, '../client/index.html'))
-  })
-
-  app.post('/', (request, response) => {
-    checkDefaultConfig()
-    response.send('FROND config file created!')
   })
 
   app.post('/generate', (request, response) => {
@@ -188,16 +191,12 @@ function client () {
 }
 
 function initPackageJson () {
-  getPluginDependencies()
-
   if (fs.existsSync('package.json')) {
     updatePackageJson()
   } else {
     createPackageJson()
   }
 }
-
-
 
 function createPackageJson () {
   var packageJson = {
