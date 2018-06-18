@@ -1,10 +1,13 @@
 const yaml = require('js-yaml')
 const fs = require('fs')
 const path = require('path')
+const _ = require('lodash')
 
 const open = require('open')
 const express = require('express')
 const bodyParser = require('body-parser')
+
+let dependencies = {}
 
 function checkActivePlugins (data) {
   data = data || []
@@ -87,7 +90,9 @@ function installPlugins () {
 
 function getActivePluginsDir () {
   var tools = readPluginsDir(path.resolve(__dirname, '../plugins'))
+
   var activePlugins = checkActivePlugins(require('./../../frond/frond.config.json'))
+
   var activePluginsDir = []
 
   for (let index = 0; index < activePlugins.length; index++) {
@@ -108,18 +113,15 @@ function getPluginConfig (paths) {
 
 function installFrond () {
   console.log('FROND install')
+
   // install base config
   var base = getPluginConfig(path.resolve(__dirname, '../plugins/config/base.config'))
 
-  // console.log(require(path.resolve(__dirname, '../../package.json')).devDependencies)
+  checkPackageJson()
 
   fs.createReadStream(path.resolve(__dirname, '../plugins/config/webpack.config.js')).pipe(fs.createWriteStream('./frond/webpack.config.js'))
-  // console.log(base)
 
-  var activePluginsDir = getActivePluginsDir()
-  console.log(activePluginsDir)
-
-  checkPackageJson()
+  console.log('FROND installed')
 }
 
 function checkDefaultConfig () {
@@ -171,11 +173,26 @@ function client () {
 }
 
 function checkPackageJson () {
+  getPluginDependencies()
+
   if (fs.existsSync('package.json')) {
-    console.log('exist')
+    updatePackageJson()
   } else {
-    console.log('not exist')
     createPackageJson()
+  }
+}
+
+function getPluginDependencies () {
+  var tools = readPluginsDir(path.resolve(__dirname, '../plugins'))
+  var activePlugins = checkActivePlugins(require('./../../frond/frond.config.json'))
+
+  for (let index = 0; index < activePlugins.length; index++) {
+    const plugin = activePlugins[index]
+    for (const key in tools) {
+      if (key === plugin) {
+        dependencies = getPluginConfig(tools[key]).dependencies
+      }
+    }
   }
 }
 
@@ -185,10 +202,19 @@ function createPackageJson () {
     version: '0.0.1',
     description: 'frond generate',
     main: 'index.js',
-    author: ''
+    author: '',
+    devDependencies: dependencies
   }
 
   fs.writeFileSync('./_package.json', JSON.stringify(packageJson, null, ' '))
+}
+
+function updatePackageJson () {
+  var oldPackageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'))
+
+  oldPackageJson.devDependencies = _.assign(oldPackageJson.devDependencies, dependencies)
+
+  fs.writeFileSync('./_package.json', JSON.stringify(oldPackageJson, null, ' '))
 }
 
 module.exports.installPlugins = installPlugins
