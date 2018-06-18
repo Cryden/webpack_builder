@@ -88,12 +88,13 @@ function installPlugins () {
 function getActivePluginsDir () {
   var tools = readPluginsDir(path.resolve(__dirname, '../plugins'))
   var activePlugins = checkActivePlugins(require('./../../frond/frond.config.json'))
+  var activePluginsDir = []
 
   for (let index = 0; index < activePlugins.length; index++) {
     const plugin = activePlugins[index]
     for (const key in tools) {
       if (key === plugin) {
-        var activePluginsDir = path.dirname(tools[key])
+        activePluginsDir.push(path.dirname(tools[key]))
       }
     }
   }
@@ -106,16 +107,19 @@ function getPluginConfig (paths) {
 }
 
 function installFrond () {
+  console.log('FROND install')
   // install base config
   var base = getPluginConfig(path.resolve(__dirname, '../plugins/config/base.config'))
 
-  console.log(require(path.resolve(__dirname, '../../package.json')).devDependencies)
+  // console.log(require(path.resolve(__dirname, '../../package.json')).devDependencies)
 
   fs.createReadStream(path.resolve(__dirname, '../plugins/config/webpack.config.js')).pipe(fs.createWriteStream('./frond/webpack.config.js'))
-  console.log(base)
+  // console.log(base)
 
   var activePluginsDir = getActivePluginsDir()
   console.log(activePluginsDir)
+
+  checkPackageJson()
 }
 
 function checkDefaultConfig () {
@@ -166,6 +170,29 @@ function client () {
   open(`http://localhost:${port}`)
 }
 
+function checkPackageJson () {
+  if (fs.existsSync('package.json')) {
+    console.log('exist')
+  } else {
+    console.log('not exist')
+    createPackageJson()
+  }
+}
+
+function createPackageJson () {
+  var packageJson = {
+    name: 'name',
+    version: '0.0.1',
+    description: 'frond generate',
+    main: 'index.js',
+    author: ''
+  }
+
+  fs.writeFileSync('./_package.json', JSON.stringify(packageJson, null, ' '))
+}
+
 module.exports.installPlugins = installPlugins
 module.exports.installFrond = installFrond
 module.exports.client = client
+
+installFrond()
