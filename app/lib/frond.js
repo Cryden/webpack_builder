@@ -7,10 +7,69 @@ const open = require('open')
 const express = require('express')
 const bodyParser = require('body-parser')
 
-let dependencies = {}
+let components = yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, '../plugins/config/components.yml'), 'utf8'))
+let tools = readPluginsDir(path.resolve(__dirname, '../plugins'))
+let activePlugins = checkActivePlugins()
+let dependencies = getPluginDependencies()
 
-function checkActivePlugins (data) {
-  data = data || []
+console.log(tools)
+/*
+/  Install All Plugins
+*/
+function installPlugins () {
+  for (var key in tools) {
+    var pluginData = yaml.safeLoad(fs.readFileSync(tools[key], 'utf8'))
+
+    for (let index = 0; index < components.length; index++) {
+      if (components[index].title === pluginData.type) {
+        components[index].cards = []
+        var card = {}
+        card.title = pluginData.title
+        card.plugin_name = pluginData.plugin_name
+        if (pluginData.icon !== undefined) {
+          card.src = 'images/' + pluginData.title + '-logo.png'
+          let imgSource = path.dirname(tools[key]) + '/' + pluginData.icon
+          fs.createReadStream(path.resolve(__dirname, imgSource)).pipe(fs.createWriteStream(path.resolve(__dirname, '../client/images/', pluginData.title + '-logo.png')))
+        } else {
+          card.src = 'images/dump.png'
+        }
+
+        if (pluginData.default === undefined) {
+          card.check = false
+        } else {
+          card.check = true
+        }
+
+        components[index].cards.push(card)
+        components[index].check = true
+      }
+    }
+  }
+
+  fs.writeFileSync(path.resolve(__dirname, '../client/config.json'), JSON.stringify(components))
+}
+
+/*
+/  Return Active Plugin Dependencies
+*/
+function getPluginDependencies () {
+  let dependencies = {}
+  for (let index = 0; index < activePlugins.length; index++) {
+    const plugin = activePlugins[index]
+    for (const key in tools) {
+      if (key === plugin) {
+        dependencies = getPluginConfig(tools[key]).dependencies
+      }
+    }
+  }
+  return dependencies
+}
+
+/*
+/ Return Active Plugins name
+*/
+function checkActivePlugins () {
+  data = require('./../../frond/frond.config.json')
   let plugins = []
   for (let index = 0; index < data.length; index++) {
     const section = data[index]
@@ -48,53 +107,7 @@ function readPluginsDir (dir, data) {
   return data
 }
 
-function setupClient (components, tools) {
-  for (var key in tools) {
-    var pluginData = yaml.safeLoad(fs.readFileSync(tools[key], 'utf8'))
-
-    for (let index = 0; index < components.length; index++) {
-      if (components[index].title === pluginData.type) {
-        components[index].cards = []
-        var card = {}
-        card.title = pluginData.title
-        card.plugin_name = pluginData.plugin_name
-        if (pluginData.icon !== undefined) {
-          card.src = 'images/' + pluginData.title + '-logo.png'
-          let imgSource = path.dirname(tools[key]) + '/' + pluginData.icon
-          fs.createReadStream(path.resolve(__dirname, imgSource)).pipe(fs.createWriteStream(path.resolve(__dirname, '../client/images/', pluginData.title + '-logo.png')))
-        } else {
-          card.src = 'images/dump.png'
-        }
-
-        if (pluginData.default === undefined) {
-          card.check = false
-        } else {
-          card.check = true
-        }
-
-        components[index].cards.push(card)
-        components[index].check = true
-      }
-    }
-  }
-
-  fs.writeFileSync(path.resolve(__dirname, '../client/config.json'), JSON.stringify(components))
-}
-
-function installPlugins () {
-  var components = yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, '../plugins/config/components.yml'), 'utf8'))
-  var tools = readPluginsDir(path.resolve(__dirname, '../plugins'))
-
-  setupClient(components, tools)
-}
-
 function getActivePluginsDir () {
-  var tools = readPluginsDir(path.resolve(__dirname, '../plugins'))
-
-  var activePlugins = checkActivePlugins(require('./../../frond/frond.config.json'))
-
-  var activePluginsDir = []
-
   for (let index = 0; index < activePlugins.length; index++) {
     const plugin = activePlugins[index]
     for (const key in tools) {
@@ -117,7 +130,9 @@ function installFrond () {
   // install base config
   var base = getPluginConfig(path.resolve(__dirname, '../plugins/config/base.config'))
 
-  checkPackageJson()
+  initPackageJson()
+
+  addTasks()
 
   fs.createReadStream(path.resolve(__dirname, '../plugins/config/webpack.config.js')).pipe(fs.createWriteStream('./frond/webpack.config.js'))
 
@@ -172,7 +187,7 @@ function client () {
   open(`http://localhost:${port}`)
 }
 
-function checkPackageJson () {
+function initPackageJson () {
   getPluginDependencies()
 
   if (fs.existsSync('package.json')) {
@@ -182,19 +197,7 @@ function checkPackageJson () {
   }
 }
 
-function getPluginDependencies () {
-  var tools = readPluginsDir(path.resolve(__dirname, '../plugins'))
-  var activePlugins = checkActivePlugins(require('./../../frond/frond.config.json'))
 
-  for (let index = 0; index < activePlugins.length; index++) {
-    const plugin = activePlugins[index]
-    for (const key in tools) {
-      if (key === plugin) {
-        dependencies = getPluginConfig(tools[key]).dependencies
-      }
-    }
-  }
-}
 
 function createPackageJson () {
   var packageJson = {
@@ -215,6 +218,10 @@ function updatePackageJson () {
   oldPackageJson.devDependencies = _.assign(oldPackageJson.devDependencies, dependencies)
 
   fs.writeFileSync('./_package.json', JSON.stringify(oldPackageJson, null, ' '))
+}
+
+function addTasks () {
+
 }
 
 module.exports.installPlugins = installPlugins
