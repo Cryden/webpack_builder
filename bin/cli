@@ -10,7 +10,7 @@ program
   .command('setup')
   .description('setup FROND')
   .action(function () {
-    frond.client()
+    frond.app()
   })
 
 program

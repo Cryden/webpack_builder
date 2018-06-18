@@ -7,13 +7,10 @@ const open = require('open')
 const express = require('express')
 const bodyParser = require('body-parser')
 
-// componets - group of plugins
-let components = readYml('../plugins/config/components.yml')
-// tools - installed plugins
-let tools = readPluginsDir('../plugins')
-// plugins - active plugins
+// Registry
+let components = []
+let tools = []
 let plugins = []
-// pluginsDependencies - active plugins dependenncies
 let dependencies = []
 
 // console.log(tools)
@@ -58,7 +55,6 @@ function installPlugins () {
         if (pluginData.icon !== undefined) {
           card.src = 'images/' + pluginData.plugin_name + '-logo.png'
           let imgSource = path.resolve(tools[key], pluginData.icon)
-          console.log(imgSource)
           fs.createReadStream(path.resolve(__dirname, imgSource)).pipe(fs.createWriteStream(path.resolve(__dirname, '../client/images/', pluginData.plugin_name + '-logo.png')))
         } else {
           card.src = 'images/dump.png'
@@ -95,8 +91,8 @@ function getPluginDependencies () {
 /*
 / Return Active Plugins name
 */
-function checkActivePlugins () {
-  let data = require('./../../frond/frond.config.json')
+function checkActivePlugins (data) {
+  let data = data || require('./../../frond/frond.config.json')
   let plugins = []
   for (let index = 0; index < data.length; index++) {
     const section = data[index]
@@ -152,6 +148,7 @@ function installFrond () {
 
   plugins = getPlugins()
   dependencies = getPluginDependencies()
+  console.log(dependencies)
 
   initPackageJson()
 
@@ -163,8 +160,7 @@ function installFrond () {
 }
 
 function client () {
-  installPlugins()
-
+  
   const app = express()
   const port = 8000
 
@@ -181,6 +177,7 @@ function client () {
       fs.mkdirSync('./frond/')
     }
     fs.writeFileSync('./frond/frond.config.json', JSON.stringify(request.body), {flag: 'w+'})
+    activePlugins = checkActivePlugins(JSON.stringify(request.body))
     installFrond()
     response.send('frond setup')
   })
@@ -238,6 +235,23 @@ function addTasks () {
   }
 }
 
+function app () {
+  components = readYml('../plugins/config/components.yml')
+  tools = readPluginsDir('../plugins')
+
+  installPlugins()
+
+  client()
+}
+
 module.exports.installPlugins = installPlugins
 module.exports.installFrond = installFrond
-module.exports.client = client
+module.exports.app = app
+
+app()
+
+console.log('Registry')
+console.log('components', components)
+console.log('tools', tools)
+console.log('plugins', plugins)
+console.log('dependencies', dependencies)
