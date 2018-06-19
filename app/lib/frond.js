@@ -92,7 +92,7 @@ function getPluginDependencies () {
 / Return Active Plugins name
 */
 function checkActivePlugins (data) {
-  let data = data || require('./../../frond/frond.config.json')
+  data = data || require('./../../frond/frond.config.json')
   let plugins = []
   for (let index = 0; index < data.length; index++) {
     const section = data[index]
@@ -160,7 +160,11 @@ function installFrond () {
 }
 
 function client () {
-  
+  components = readYml('../plugins/config/components.yml')
+  tools = readPluginsDir('../plugins')
+
+  installPlugins()
+
   const app = express()
   const port = 8000
 
@@ -177,7 +181,7 @@ function client () {
       fs.mkdirSync('./frond/')
     }
     fs.writeFileSync('./frond/frond.config.json', JSON.stringify(request.body), {flag: 'w+'})
-    activePlugins = checkActivePlugins(JSON.stringify(request.body))
+    let activePlugins = checkActivePlugins(JSON.stringify(request.body))
     installFrond()
     response.send('frond setup')
   })
@@ -235,20 +239,7 @@ function addTasks () {
   }
 }
 
-function app () {
-  components = readYml('../plugins/config/components.yml')
-  tools = readPluginsDir('../plugins')
-
-  installPlugins()
-
-  client()
-}
-
-module.exports.installPlugins = installPlugins
-module.exports.installFrond = installFrond
-module.exports.app = app
-
-app()
+module.exports.client = client
 
 console.log('Registry')
 console.log('components', components)
