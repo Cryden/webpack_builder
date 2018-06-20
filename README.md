@@ -3,7 +3,7 @@
 
 </br>
 <p align='center'>
-  <img  src='app/assets/logo.png' width='300'/>
+  <img  src='app/assets/images/logo.png' width='300'/>
 </p>
 </br>
 
@@ -12,6 +12,6 @@
 ## Install
 
 ``` 
-yarn @cryden/webpack_builder
+yarn @cryden/webpack_builder -g
 ```
 

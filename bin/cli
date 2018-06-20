@@ -18,7 +18,7 @@ program
   .alias('dev')
   .description('run FROND in development mode')
   .action(function () {
-    require('./cli-development')
+    console.log('DEV!!!...')
   })
 
 program
