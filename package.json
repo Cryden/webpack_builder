@@ -1,7 +1,7 @@
 {
-  "name": "@cryden/webpack_builder",
-  "version": "0.3.5",
-  "description": "webpack builder",
+  "name": "webpack_builder",
+  "version": "0.5.0",
+  "description": "simple FROnt-eND webpack builder",
   "main": "index.js",
   "author": "CRYDEsigN",
   "license": "MIT",
