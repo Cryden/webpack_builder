@@ -1,6 +1,6 @@
 const path = require('path')
 const merge = require('webpack-merge')
-// let taskspath = path.resolve('webpack/tasks/')
+// let taskspath = path.resolve('frond/tasks/')
 // const tasks = require('require-all')(taskspath)
 // let optionspath = path.resolve('webpack/options/')
 // const options = require('require-all')(optionspath)
