@@ -6,3 +6,6 @@ dependencies:
   "webpack-merge": "^4.1.2"
   "require-all": "^2.2.0"
 options: 
+
+sourceDir: source
+destDir: dist

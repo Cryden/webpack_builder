@@ -10,7 +10,7 @@ let common = {
     index: './source/js/index.js'
   },
   output: {
-    path: path.resolve('app/client'),
+    path: path.resolve('dist'),
     filename: 'js/[name].bundle.[hash].js'
   },
   plugins: [
