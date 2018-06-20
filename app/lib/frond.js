@@ -12,8 +12,7 @@ let components = []
 let tools = []
 let plugins = []
 let dependencies = []
-
-// console.log(tools)
+let activePlugins = []
 
 /*
 /  Read .yml files
@@ -26,7 +25,6 @@ function readYml (paths) {
 /  set Active Plugins
 */
 function getPlugins () {
-  let activePlugins = checkActivePlugins()
   let plugin = []
 
   for (let index = 0; index < activePlugins.length; index++) {
@@ -43,7 +41,7 @@ function getPlugins () {
 /*
 /  Install All Plugins
 */
-function installPlugins () {
+function initPlugins () {
   for (var key in tools) {
     var pluginData = getPluginConfig(tools[key])
     for (let index = 0; index < components.length; index++) {
@@ -89,14 +87,13 @@ function getPluginDependencies () {
 }
 
 /*
-/ Return Active Plugins name
+/ Set Active Plugins
 */
-function checkActivePlugins (data) {
-  data = data || require('./../../frond/frond.config.json')
+function setActivePlugins (data) {
+  data = data || []
   let plugins = []
   for (let index = 0; index < data.length; index++) {
     const section = data[index]
-
     if (section.cards !== undefined) {
       for (let i = 0; i < section.cards.length; i++) {
         const card = section.cards[i]
@@ -106,7 +103,7 @@ function checkActivePlugins (data) {
       }
     }
   }
-  return plugins
+  activePlugins = plugins
 }
 
 /*
@@ -148,7 +145,6 @@ function installFrond () {
 
   plugins = getPlugins()
   dependencies = getPluginDependencies()
-  console.log(dependencies)
 
   initPackageJson()
 
@@ -163,7 +159,7 @@ function client () {
   components = readYml('../plugins/config/components.yml')
   tools = readPluginsDir('../plugins')
 
-  installPlugins()
+  initPlugins()
 
   const app = express()
   const port = 8000
@@ -180,8 +176,8 @@ function client () {
     if (!fs.existsSync('./frond/')) {
       fs.mkdirSync('./frond/')
     }
-    fs.writeFileSync('./frond/frond.config.json', JSON.stringify(request.body), {flag: 'w+'})
-    let activePlugins = checkActivePlugins(JSON.stringify(request.body))
+    // fs.writeFileSync('./frond/frond.config.json', JSON.stringify(request.body), {flag: 'w+'})
+    setActivePlugins(request.body)
     installFrond()
     response.send('frond setup')
   })
@@ -240,9 +236,3 @@ function addTasks () {
 }
 
 module.exports.client = client
-
-console.log('Registry')
-console.log('components', components)
-console.log('tools', tools)
-console.log('plugins', plugins)
-console.log('dependencies', dependencies)
