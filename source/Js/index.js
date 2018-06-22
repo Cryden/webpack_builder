@@ -21,7 +21,6 @@ fontawesome.library.add(faJs)
 fontawesome.library.add(faFont)
 fontawesome.library.add(faToolbox)
 
-
 Vue.use(Vuetify)
 Vue.use(Vuex)
 
