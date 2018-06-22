@@ -1,0 +1,10 @@
+plugin_name: css
+type: CSS Preprocessors
+title: CSS3
+icon: logo.png
+description: build html (default)
+dependencies: 
+   "css-loader": "^0.28.11"
+   "extract-text-webpack-plugin": "^4.0.0-beta.0"
+   "style-loader": "^0.20.3"
+options: 

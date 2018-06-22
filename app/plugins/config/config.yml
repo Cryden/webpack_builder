@@ -1,0 +1,14 @@
+plugin_name: base
+description: base config
+packet_manager: yarn
+dependencies: 
+  "path": "^0.12.7"
+  "webpack-merge": "^4.1.2"
+  "require-all": "^2.2.0"
+  "webpack": "^4.5.0"
+  "webpack-cli": "^2.0.14"
+  "webpack-dev-server": "^3.1.2"
+options: 
+
+sourceDir: source
+destDir: dist

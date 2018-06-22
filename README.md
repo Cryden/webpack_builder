@@ -1,9 +1,11 @@
 # FROND builder
 ###### FROnt-eND webpack build tools
 
+### Alpha version
+
 </br>
 <p align='center'>
-  <img  src='./assets/logo.png' width='300'/>
+  <img  src='app/assets/images/logo.png' width='300'/>
 </p>
 </br>
 
@@ -12,31 +14,26 @@
 ## Install
 
 ``` 
-git clone https://github.com/Cryden/webpack_builder
+yarn @cryden/webpack_builder -g
+```
+## Use
+
+```
+builder setup
 ```
 
-## Features
+```
+yarn install
+```
 
-### HTML
+Development mode
 
-- [x] add Pug template engine
+```
+yarn dev
+```
 
-- [x] add Favicons support (production)
+Production mode
 
-### CSS
-
-- [x] add Sass preprocessor
-
-### JS
-
-- [x] add Babel support
-
-### Other
-
-- [x] add webpack-dev-server (livereload)
-
-- [x] add notifier
-
-- [x] add webpack bar
-
-- [ ] [add file manager](https://www.npmjs.com/package/filemanager-webpack-plugin)
+```
+yarn prod
+```

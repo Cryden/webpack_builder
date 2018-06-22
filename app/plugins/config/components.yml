@@ -1,0 +1,32 @@
+-
+  title: 'Template Engine'
+  icon: 'fab fa-html5'
+  color: 'orange'
+-
+  title: 'CSS Preprocessors'
+  color: 'blue'
+  icon: 'fab fa-css3'
+-
+  title: 'CSS Frameworks'
+  color: 'blue'
+  icon: 'fab fa-css3'
+-
+  title: 'JS Transpilers & Extension Languages'
+  color: 'yellow'
+  icon: 'fab fa-js'
+-
+  title: 'JS Library'
+  color: 'yellow'
+  icon: 'fab fa-js'
+-
+  title: 'JS Framework'
+  color: 'yellow'
+  icon: 'fab fa-js'
+-
+  title: 'Fonts'
+  color: 'blue'
+  icon: 'fas fa-font'
+-
+  title: 'Tools'
+  color: 'red'
+  icon: 'fas fa-toolbox'
