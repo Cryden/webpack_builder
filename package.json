@@ -1,6 +1,6 @@
 {
   "name": "frond-builder",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "simple FROnt-eND webpack builder",
   "main": "index.js",
   "author": "CRYDEsigN",
