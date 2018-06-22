@@ -1,5 +1,0 @@
-plugins:
-  name: frond-favicons
-  type: task
-  dependencies: 
-    - favicons-webpack-plugin
