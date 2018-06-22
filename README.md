@@ -1,6 +1,8 @@
 # FROND builder
 ###### FROnt-eND webpack build tools
 
+### Alpha version
+
 </br>
 <p align='center'>
   <img  src='app/assets/images/logo.png' width='300'/>
@@ -14,4 +16,24 @@
 ``` 
 yarn @cryden/webpack_builder -g
 ```
+## Use
 
+```
+builder setup
+```
+
+```
+yarn install
+```
+
+Development mode
+
+```
+yarn dev
+```
+
+Production mode
+
+```
+yarn prod
+```

@@ -79,6 +79,7 @@ function initPlugins () {
 function getPluginDependencies () {
   let dependencies = {}
 
+  plugins.push('./../plugins/config')
   for (const key in plugins) {
     dependencies = _.assign(dependencies, getPluginConfig(plugins[key]).dependencies)
   }
@@ -207,10 +208,14 @@ function createPackageJson () {
     description: 'frond generate',
     main: 'index.js',
     author: '',
-    devDependencies: dependencies
+    devDependencies: dependencies,
+    scripts: {
+      dev: 'webpack-dev-server --config ./frond/webpack.config --mode development --open',
+      prod: 'webpack --config ./frond/webpack.config --mode production'
+    }
   }
 
-  fs.writeFileSync('./_package.json', JSON.stringify(packageJson, null, ' '))
+  fs.writeFileSync('./package.json', JSON.stringify(packageJson, null, ' '))
 }
 
 function updatePackageJson () {
@@ -218,7 +223,7 @@ function updatePackageJson () {
 
   oldPackageJson.devDependencies = _.assign(oldPackageJson.devDependencies, dependencies)
 
-  fs.writeFileSync('./_package.json', JSON.stringify(oldPackageJson, null, ' '))
+  fs.writeFileSync('./package.json', JSON.stringify(oldPackageJson, null, ' '))
 }
 
 function addTasks () {
@@ -227,6 +232,9 @@ function addTasks () {
       let dirFile = path.join(plugins[key], 'task.js')
       if (!fs.existsSync('./frond/tasks/')) {
         fs.mkdirSync('./frond/tasks/')
+      }
+      if (!fs.existsSync('./frond/options/')) {
+        fs.mkdirSync('./frond/options/')
       }
       if (fs.existsSync(dirFile)) {
         fs.createReadStream(dirFile).pipe(fs.createWriteStream('./frond/tasks/' + key + '.js'))

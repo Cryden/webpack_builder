@@ -3,12 +3,12 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 let files = []
-let dirFiles = fs.readdirSync(path.join('source/pug'))
+let dirFiles = fs.readdirSync(path.join('source/html'))
 
 for (let i = 0; i < dirFiles.length; i++) {
-  if (dirFiles[i].endsWith('.pug')) {
-    let keyName = dirFiles[i].substring(0, dirFiles[i].length - '.yml'.length)
-    files[keyName] = path.join('source/pug', dirFiles[i])
+  if (dirFiles[i].endsWith('.html')) {
+    let keyName = dirFiles[i].substring(0, dirFiles[i].length - '.html'.length)
+    files[keyName] = path.join('html', dirFiles[i])
   }
 }
 
@@ -24,21 +24,18 @@ for (var keyName in files) {
   }
 }
 
-module.exports = pug => {
+module.exports = html => {
   return {
     module: {
       rules: [
         {
-          test: /\.pug$/,
+          test: /\.html$/,
           use: [
             {
               loader: 'html-loader',
               options: {
                 attrs: ['img:src']
               }
-            },
-            {
-              loader: 'pug-plain-loader'
             }
           ]
         }
