@@ -2,7 +2,6 @@ const yaml = require('js-yaml')
 const fs = require('fs')
 const path = require('path')
 const _ = require('lodash')
-
 const open = require('open')
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -14,16 +13,18 @@ let plugins = []
 let dependencies = []
 let activePlugins = []
 
-/*
-/  Read .yml files
-*/
+/**
+ * Read object from YAML files
+ * @param  {string} paths Path to file
+ * @return {object} Object from file
+ */
 function readYml (paths) {
   return yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, paths), 'utf8'))
 }
 
-/*
-/  set Active Plugins
-*/
+/**
+ * @return {array} Array of active plugins
+ */
 function getPlugins () {
   let plugin = []
 
@@ -38,8 +39,8 @@ function getPlugins () {
   return plugin
 }
 
-/*
-/  Install All Plugins
+/**
+* Initialize Plugins
 */
 function initPlugins () {
   for (var key in tools) {
@@ -73,8 +74,9 @@ function initPlugins () {
   fs.writeFileSync(path.resolve(__dirname, '../client/config.json'), JSON.stringify(components))
 }
 
-/*
-/  Return Active Plugin Dependencies
+/**
+* Return Active Plugin Dependencies
+* @return {Object} Dependencies
 */
 function getPluginDependencies () {
   let dependencies = {}
